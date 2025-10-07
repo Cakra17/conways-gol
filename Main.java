@@ -1,0 +1,41 @@
+import com.raylib.Colors;
+import com.raylib.Raylib;
+
+public class Main {
+  static final int SCREEN_WIDTH = 800;
+  static final int SCREEN_HEIGHT = 600;
+  static final int FPS = 60;
+
+  static final int CELL_SIZE = 20;
+  static final int COLS = SCREEN_WIDTH / CELL_SIZE;
+  static final int ROWS = SCREEN_HEIGHT / CELL_SIZE;
+
+  public static void main(String[] args) {
+    Raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Conway's Game of Life");
+    Raylib.SetTargetFPS(60);
+    while(!Raylib.WindowShouldClose()) {
+      Raylib.BeginDrawing();
+      Raylib.ClearBackground(Colors.BLACK);
+      drawGrid();
+      drawCell(19, 14);
+      Raylib.EndDrawing();
+    }
+    Raylib.CloseWindow();
+  }
+
+  static void drawGrid() {
+    for (int i = 0; i <= COLS; i++) {
+      int posx = i * CELL_SIZE;
+      Raylib.DrawLine(posx, 0, posx, ROWS * CELL_SIZE, Colors.GRAY);
+    }
+
+    for (int i = 0; i <= ROWS; i++) {
+      int posy = i * CELL_SIZE;
+      Raylib.DrawLine(0, posy, COLS * CELL_SIZE, posy, Colors.GRAY);
+    }
+  }
+
+  static void drawCell(int x, int y) {
+      Raylib.DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Colors.WHITE);
+  }
+}

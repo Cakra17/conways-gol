@@ -1,0 +1,6 @@
+# Build dir
+build/*
+
+# Package
+lib/*
+*.class
