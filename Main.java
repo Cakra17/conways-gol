@@ -12,12 +12,12 @@ public class Main {
 
   public static void main(String[] args) {
     Raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Conway's Game of Life");
-    Raylib.SetTargetFPS(60);
+    Raylib.SetTargetFPS(1);
     while(!Raylib.WindowShouldClose()) {
       Raylib.BeginDrawing();
       Raylib.ClearBackground(Colors.BLACK);
       drawGrid();
-      drawCell(19, 14);
+      play(initGameState(COLS, ROWS));
       Raylib.EndDrawing();
     }
     Raylib.CloseWindow();
@@ -37,5 +37,26 @@ public class Main {
 
   static void drawCell(int x, int y) {
       Raylib.DrawRectangle(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, Colors.WHITE);
+  }
+
+  static int[][] initGameState(int row_count, int col_count) {
+    int[][] state = new int[row_count][col_count];
+    for (int i = 0; i < row_count; i++) {
+      for (int j = 0; j < col_count; j++) {
+        state[i][j] = (int) (Math.random() * 2);
+      }
+    }
+
+    return state;
+  }
+
+  static void play(int[][] gameState) {
+    for (int i = 0; i < gameState.length; i++) {
+      for (int j = 0; j < gameState[i].length; j++) {
+        if (gameState[i][j] == 1) {
+          drawCell(i, j);
+        }
+      }
+    }
   }
 }
